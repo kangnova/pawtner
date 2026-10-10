@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pawtner
 
-## Getting Started
+The petshop owner's partner — a B2B SaaS that helps Indonesian pet shop owners run their store: point-of-sale, inventory with expiry tracking, a customer-facing store page, WhatsApp ordering, and subscriptions/reorder reminders.
 
-First, run the development server:
+## Why
+
+Indonesia's pet care market is growing (cat-led, urban, "pet humanization"), but ~65% of sales still happen offline, and most small pet shops still run on WhatsApp + pen-and-paper. Pawtner gives them the tools to professionalize without hiring a developer.
+
+The recurring-purchase problem is the moat: pet food and cat litter run out on a schedule. Chewy earns ~84% of net sales from Autoship. Pawtner brings that same "subscribe & never run out" mechanic to Indonesian corner pet shops — plus the things local shops uniquely need (expiry tracking, multi-unit sales, WhatsApp checkout).
+
+## Stack
+
+- Next.js (App Router) + TypeScript (strict)
+- Tailwind CSS + shadcn/ui
+- Prisma 6 + PostgreSQL
+- Zod + TanStack Query
+- NextAuth.js (credentials, JWT sessions)
+- Recharts
+- Vitest / Playwright
+
+## Architecture
+
+Monorepo-free single Next.js app (App Router):
+
+- `src/app` — pages (dashboard, products, customers, sales, subscriptions, public storefront)
+- `src/app/api` — route handlers (REST-ish JSON)
+- `src/lib` — Prisma client, auth, business logic (payroll-style pure functions kept here for testability)
+- `prisma/schema.prisma` — data model (see docs/SPEC.md)
+
+## Roadmap
+
+- MVP: auth (owner/staff/admin), store setup, product catalog with batches + expiry, customers + pet profiles, point-of-sale sales, inventory thresholds.
+- v1: subscriptions (frequency + discount + next-run), WhatsApp order link, public storefront, reorder reminders.
+- v2: analytics dashboard (Recharts), multi-branch, loyalty points, supplier/restock workflow.
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+docker compose up -d          # PostgreSQL on :5436
+npx prisma migrate dev        # apply schema + generate client
+npm run dev                   # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See docs/SPEC.md for the full data model and business rules.

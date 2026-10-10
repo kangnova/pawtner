@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: pawtner-db
+    environment:
+      POSTGRES_USER: pawtner
+      POSTGRES_PASSWORD: pawtner
+      POSTGRES_DB: pawtner
+    ports:
+      - "5436:5432"
+    volumes:
+      - pawtner_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pawtner -d pawtner"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pawtner_pgdata:
