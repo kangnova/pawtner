@@ -34,6 +34,9 @@ export default async function CustomersPage() {
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold">Customers</h1>
         <div className="flex items-center gap-4">
+          <Link href="/dashboard" className="text-sm text-neutral-600 underline">
+            Dashboard
+          </Link>
           <Link href="/products" className="text-sm text-neutral-600 underline">
             Products
           </Link>

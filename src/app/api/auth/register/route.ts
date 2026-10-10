@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     });
 
     return ok({ userId: user.id, storeId: store.id, storeSlug: store.slug }, 201);
-  } catch (e) {
+  } catch {
     return fail("Could not create account", 500);
   }
 }
